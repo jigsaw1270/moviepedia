@@ -1,12 +1,44 @@
-# React + Vite
+# moviepedia
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+moviepedia is a web application designed to help users explore, search, and manage their favorite movies. It provides a user-friendly interface to browse through a vast collection of movies, view detailed information, and create personalized watchlists.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Search Movies**: Quickly search for movies by title, genre, or release year.
+- **Movie Details**: View detailed information about movies, including cast, synopsis, and ratings.
+- **Watchlist Management**: Add movies to your watchlist for easy access later.
+- **Responsive Design**: Optimized for both desktop and mobile devices.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend**: React, HTML, CSS
+- **Backend**: Node.js, Express
+- **Database**: MongoDB
+- **API**: Integrated with a third-party movie database API (e.g., TMDb)
+
+## Installation
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/yourusername/moviepedia.git
+    ```
+2. Navigate to the project directory:
+    ```bash
+    cd moviepedia
+    ```
+3. Install dependencies:
+    ```bash
+    npm install
+    ```
+4. Start the development server:
+    ```bash
+    npm start
+    ```
+
+## Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests to improve the project.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
