@@ -13,7 +13,7 @@ moviepedia is a web application designed to help users explore, search, and mana
 
 - **Frontend**: React, HTML, CSS
 - **Backend**: Node.js, Express
-- **Database**: MongoDB
+- **Database**: appwrite
 - **API**: Integrated with a third-party movie database API (e.g., TMDb)
 
 ## Installation
