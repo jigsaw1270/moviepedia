@@ -1,0 +1,175 @@
+.movie-details {
+  padding: 20px;
+  position: relative;
+  min-height: 100vh;
+  color: white;
+}
+
+.back-button {
+  margin-bottom: 20px;
+  z-index: 10;
+  position: relative;
+}
+
+.btn-back {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 4px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.btn-back:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+.movie-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .movie-content {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.movie-poster {
+  flex-shrink: 0;
+}
+
+.movie-poster img {
+  max-width: 300px;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.movie-info {
+  flex-grow: 1;
+}
+
+.movie-info h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.movie-meta {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rating img {
+  width: 20px;
+  height: 20px;
+}
+
+.genres {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.genre {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.overview, .director, .cast, .trailer {
+  margin-bottom: 30px;
+}
+
+.overview h3, .director h3, .cast h3, .trailer h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 5px;
+}
+
+.cast-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.cast-member {
+  width: 120px;
+  text-align: center;
+}
+
+.cast-member img {
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.cast-member p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+.character {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  margin-top: 15px;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+}
+
+.loading, .error, .not-found {
+  text-align: center;
+  padding: 50px 20px;
+  font-size: 1.2rem;
+}
+
+.error {
+  color: #ff6b6b;
+}
