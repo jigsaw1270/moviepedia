@@ -33,6 +33,7 @@ const MovieDetails = () => {
         }
 
         const data = await response.json();
+        console.log(data);
         setMovie(data);
       } catch (error) {
         console.error(error);
@@ -60,6 +61,7 @@ const MovieDetails = () => {
     runtime,
     credits,
     videos,
+    similar
   } = movie;
 
   // Find trailer if available
@@ -71,13 +73,13 @@ const MovieDetails = () => {
   const director = credits?.crew?.find((person) => person.job === "Director");
 
   // Get cast (top 5)
-  const cast = credits?.cast?.slice(0, 5) || [];
+  const cast = credits?.cast?.slice(0, 6) || [];
 
   return (
     <div className="movie-details">
       <div className="back-button">
-        <Link to="/" className="btn-back">
-          ← Back to Movies
+        <Link to="/" className="btn-back font-semibold">
+          ← Home
         </Link>
       </div>
 
@@ -99,15 +101,41 @@ const MovieDetails = () => {
             }
             alt={title}
           />
+           {director && (
+            <div className="director mt-6">
+              <h3>Director</h3>
+              <p>{director.name}</p>
+            </div>
+          )}
+
+          {movie.production_companies && movie.production_companies.length > 0 && (
+          <div className="production-logos mt-6">
+            <h3>Produced by</h3>
+            <div className="logos">
+            {movie.production_companies.slice(0, 2).map((company) => (
+              <div key={company.id} className="logos">
+              {company.logo_path ? (
+                <img
+                src={`https://image.tmdb.org/t/p/w200/${company.logo_path}`}
+                alt={company.name}
+                />
+              ) : (
+                <p>{company.name}</p>
+              )}
+              </div>
+            ))}
+            </div>
+          </div>
+          )}
         </div>
 
         <div className="movie-info">
-          <h1>{title}</h1>
+          <h1>{title}  ({release_date && (
+              <span>{new Date(release_date).getFullYear()}</span>
+            )})</h1>
           
           <div className="movie-meta">
-            {release_date && (
-              <span>{new Date(release_date).getFullYear()}</span>
-            )}
+            
             {runtime && <span>{runtime} min</span>}
             {vote_average && (
               <span className="rating">
@@ -131,14 +159,6 @@ const MovieDetails = () => {
             <h3>Overview</h3>
             <p>{overview}</p>
           </div>
-
-          {director && (
-            <div className="director">
-              <h3>Director</h3>
-              <p>{director.name}</p>
-            </div>
-          )}
-
           {cast.length > 0 && (
             <div className="cast">
               <h3>Cast</h3>
@@ -159,8 +179,11 @@ const MovieDetails = () => {
             </div>
           )}
 
-          {trailer && (
-            <div className="trailer">
+       
+        </div>
+      </div>
+      {trailer && (
+            <div className="trailer mt-8">
               <h3>Trailer</h3>
               <div className="video-container">
                 <iframe
@@ -171,8 +194,38 @@ const MovieDetails = () => {
               </div>
             </div>
           )}
-        </div>
-      </div>
+          
+          {similar && similar.results && similar.results.length > 0 && (
+            <div className="similar-movies">
+              <h3>Similar Movies</h3>
+              <div className="similar-movies-grid">
+                {similar.results.slice(0, 8).map((movie) => (
+                  <Link 
+                    key={movie.id} 
+                    to={`/movie/${movie.id}`} 
+                    className="similar-movie-card"
+                    onClick={() => window.scrollTo(0, 0)}
+                  >
+                    <img
+                      src={
+                        movie.poster_path
+                          ? `https://image.tmdb.org/t/p/w200/${movie.poster_path}`
+                          : "/no-movie.png"
+                      }
+                      alt={movie.title}
+                    />
+                    <h4>{movie.title}</h4>
+                    {movie.vote_average && (
+                      <div className="rating">
+                        <img src="/star.svg" alt="rating" />
+                        <span>{movie.vote_average.toFixed(1)}</span>
+                      </div>
+                    )}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
     </div>
   );
 };

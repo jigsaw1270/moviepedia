@@ -4,6 +4,7 @@ import Search from "./components/Search";
 import MovieCard from "./components/MovieCard";
 import MovieDetails from "./components/MovieDetails";
 import { useDebounce } from "react-use";
+import { updateSearchCount , getTrendingMovies } from "./appwrite";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -22,6 +23,7 @@ const HomePage = () => {
   const [movieList, setMovieList] = useState([]);
   const [isloading, setIsloading] = useState(false);
 const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+const [trendingMovies, setTrendingMovies] = useState([]);
 
 //debounce  the  search  term  to  prevent making  too many  api  calls
 useDebounce(
@@ -50,6 +52,9 @@ useDebounce(
       }
 
       setMovieList(data.results || []);
+if(query && data.results.length>0){
+  await updateSearchCount(query, data.results[0]);
+}
     } catch (error) {
       console.error(error);
       setErrorMessage("Error fetching movies. Please try again later");
@@ -58,9 +63,23 @@ useDebounce(
     }
   };
 
+  const loadTrendingMovies = async () => {
+    try {
+      const movies = await getTrendingMovies();
+      setTrendingMovies(movies);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
     fetchMovies(debouncedSearchTerm);
   }, [debouncedSearchTerm]);
+
+  useEffect(() => {
+   loadTrendingMovies();
+  }, [])
+  
 
   return (
     <main>
@@ -68,15 +87,31 @@ useDebounce(
         <div className="wrapper">
           <header>
             <img src="/hero.png" alt="Hero" />
+            <h1 className="text-gradient">MOVIEPEDIA</h1>
             <h1>
               Find <span className="text-gradient">Movies</span> You'll Enjoy
               Without the Hassle
             </h1>
             <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           </header>
+          {
+            trendingMovies.length > 0 && (
+              <section className="trending">
+                <h2>Trending Movies</h2>
 
+                <ul>
+                  {trendingMovies.map((movie, index)=>(
+                    <li key={movie.$id}>
+                      <p>{index + 1}</p>
+                      <img src={movie.poster_url} alt="movietitle" />
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )
+          }
           <section className="all-movies">
-            <h2 className="mt-[40]">All movies</h2>
+            <h2>All movies</h2>
             {isloading ? (
               <p className="loading">Loading...</p>
             ) : errorMessage ? (
