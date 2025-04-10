@@ -5,6 +5,7 @@ import MovieCard from "./components/MovieCard";
 import MovieDetails from "./components/MovieDetails";
 import { useDebounce } from "react-use";
 import { updateSearchCount , getTrendingMovies } from "./appwrite";
+import Slider from "./components/Slider";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -86,8 +87,9 @@ if(query && data.results.length>0){
       <div className="pattern">
         <div className="wrapper">
           <header>
-            <img src="/hero.png" alt="Hero" />
-            <h1 className="text-gradient">MOVIEPEDIA</h1>
+            {/* <img src="/hero.png" alt="Hero" /> */}
+            <Slider/>
+            <h1 className="text-gradient mt-6">MOVIEPEDIA</h1>
             <h1>
               Find <span className="text-gradient">Movies</span> You'll Enjoy
               Without the Hassle
